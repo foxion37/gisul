@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "gisul-mcp",
-  "account_id": "8277c1acc712e4a9d00479255015c200",
+  "name": "foxion37-gisul-mcp",
+  "account_id": "8acc618e8c8c74a7713000006c396df8",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-03",
   "workers_dev": true,
@@ -11,6 +11,6 @@
     "head_sampling_rate": 1
   },
   "r2_buckets": [
-    { "binding": "SKILLS_BUCKET", "bucket_name": "gisul-skills-releases" }
+    { "binding": "SKILLS_BUCKET", "bucket_name": "foxion37-gisul-releases" }
   ]
 }
