@@ -6,6 +6,8 @@
   "compatibility_date": "2026-09-03",
   "workers_dev": true,
   "preview_urls": true,
+  "triggers": { "crons": ["17 3 * * *"] },
+  "vars": { "GISUL_WATCH_REPO": "foxion37/portwright" },
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
