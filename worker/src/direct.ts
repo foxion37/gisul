@@ -3,6 +3,8 @@ import { ReleaseError } from "./r2-objects.ts";
 import { canonicalUri, mimeType, readDirectory, readResource, readSnapshot, resolveAlias } from "./release-reader.ts";
 import { skillWrite, writeTools } from "./skill-writer.ts";
 import { publisherFetch } from "./release-publisher.ts";
+import { runWatch } from "./watch.ts";
+import type { WatchEnv } from "./watch.ts";
 
 export interface DirectEnv {
   SKILLS_BUCKET: R2Bucket;
@@ -35,6 +37,9 @@ function rpcError(request: Request, id: Rpc["id"], code: number, message: string
 }
 
 export default {
+  scheduled(_event, env, ctx) {
+    ctx.waitUntil(runWatch(env, new Date()));
+  },
   async fetch(request: Request, env: DirectEnv): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname.startsWith("/admin/")) return publisherFetch(request, env);
@@ -117,4 +122,4 @@ export default {
       return rpcError(request, rpc.id, invalid ? -32602 : -32603, error instanceof ReleaseError ? error.message : "Release could not be read or verified", modern ? (invalid ? 400 : 500) : 200);
     }
   },
-} satisfies ExportedHandler<DirectEnv>;
+} satisfies ExportedHandler<WatchEnv>;

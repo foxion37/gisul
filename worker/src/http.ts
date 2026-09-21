@@ -34,7 +34,7 @@ export class BodyTooLargeError extends Error {
   constructor() { super("Request body is too large"); }
 }
 
-export async function readBody(request: Request, limit: number): Promise<ArrayBuffer> {
+export async function readBody(request: Pick<Request, "body">, limit: number): Promise<ArrayBuffer> {
   const reader = request.body?.getReader();
   if (!reader) return new ArrayBuffer(0);
   const chunks: Uint8Array[] = [];
